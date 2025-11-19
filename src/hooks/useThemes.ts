@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { themeAPI } from '@/lib/api';
-import type { Theme } from '../../../shared/src/types';
+import type { Theme } from '../shared-types';
 
 export function useThemes() {
   return useQuery({

@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { ArrowLeft, Plus, Edit, Trash2, GripVertical } from 'lucide-react';
 import { useTheme } from '@/hooks/useThemes';
 import { useSections, useCreateSection, useDeleteSection } from '@/hooks/useSections';
-import type { SectionType } from '../../../../../../../shared/src/types';
+import type { SectionType } from '@/shared-types';
 
 const sectionTypes: { value: SectionType; label: string; icon: string }[] = [
   { value: 'header', label: 'Header', icon: '📋' },

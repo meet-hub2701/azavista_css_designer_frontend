@@ -1,5 +1,5 @@
 import axios from 'axios';
-import type { Theme, Section, WebsiteAnalysis, ThemeExportJSON } from '../../../shared/src/types';
+import type { Theme, Section, WebsiteAnalysis, ThemeExportJSON } from '../shared-types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api';
 

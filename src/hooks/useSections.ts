@@ -1,6 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { sectionAPI } from '@/lib/api';
-import type { Section } from '../../../shared/src/types';
+import type { Section } from '../shared-types';
 
 export function useSections(themeId: string) {
   return useQuery({

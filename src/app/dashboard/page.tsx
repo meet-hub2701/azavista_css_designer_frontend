@@ -5,7 +5,7 @@ import { Plus, Palette, Trash2, Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { themeAPI } from '@/lib/api';
 import { useThemeStore } from '@/store/useThemeStore';
-import { Theme } from '../../../../shared/src/types';
+import { Theme } from '@/shared-types';
 
 export default function Dashboard() {
   const router = useRouter();

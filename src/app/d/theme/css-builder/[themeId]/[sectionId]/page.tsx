@@ -8,7 +8,7 @@ import { useSection, useUpdateSection } from '@/hooks/useSections';
 import Sidebar from '@/components/layout/Sidebar';
 import { HexColorPicker } from 'react-colorful';
 import SimpleHtmlEditor from '@/components/SimpleHtmlEditor';
-import { SectionCSSProperties, TypographyStyle } from '../../../../../../../../shared/src/types';
+import { SectionCSSProperties, TypographyStyle } from '@/shared-types';
 
 // Helper component for color picker
 const ColorPickerField = ({ label, value, onChange, presetColors = [] }: { label: string, value: string, onChange: (val: string) => void, presetColors?: string[] }) => {

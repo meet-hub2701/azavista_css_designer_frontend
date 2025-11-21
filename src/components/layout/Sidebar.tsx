@@ -15,24 +15,30 @@ export default function Sidebar() {
       path: '/d/theme/list',
       icon: List,
       disabled: false,
+      requiresTheme: false,
     },
     {
       label: 'Section List',
-      path: themeId ? `/d/theme/section-list/${themeId}` : '/d/theme/section-list',
+      path: themeId ? `/d/theme/section-list/${themeId}` : '/d/theme/list',
       icon: Layout,
-      disabled: !themeId,
+      disabled: false,
+      requiresTheme: true,
+      tooltip: !themeId ? 'Select a theme first' : undefined,
     },
     {
       label: 'Headers and Footers',
       path: '/d/theme/headers-footers',
       icon: FileText,
       disabled: false,
+      requiresTheme: false,
     },
     {
       label: 'CSS Builder',
-      path: '/d/theme/css-builder',
+      path: themeId ? `/d/theme/css-builder/${themeId}` : '/d/theme/list',
       icon: Code,
-      disabled: true,
+      disabled: false,
+      requiresTheme: true,
+      tooltip: !themeId ? 'Select a theme first' : undefined,
     },
   ];
 
@@ -63,9 +69,17 @@ export default function Sidebar() {
             
             return (
               <button
-                key={item.path}
-                onClick={() => !item.disabled && router.push(item.path)}
+                key={item.label}
+                onClick={() => {
+                  if (item.requiresTheme && !themeId) {
+                    // Redirect to theme list if theme is required but not selected
+                    router.push('/d/theme/list');
+                  } else {
+                    router.push(item.path);
+                  }
+                }}
                 disabled={item.disabled}
+                title={item.tooltip}
                 className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors ${
                   isActive
                     ? 'bg-blue-600 text-white'
@@ -76,11 +90,16 @@ export default function Sidebar() {
               >
                 <Icon className="w-4 h-4" />
                 {item.label}
+                {item.requiresTheme && !themeId && (
+                  <span className="ml-auto text-xs text-gray-500">*</span>
+                )}
               </button>
             );
           })}
         </nav>
       </div>
+
+
     </div>
   );
 }

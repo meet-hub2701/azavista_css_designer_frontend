@@ -7,6 +7,8 @@ export interface Theme {
   sourceUrl?: string;
   extractedHtml?: string;
   extractedCss?: string;
+  extractedFonts?: string[];
+  extractedColors?: string[];
   sections: Section[];
   globalStyles: GlobalStyles;
   createdAt?: Date;

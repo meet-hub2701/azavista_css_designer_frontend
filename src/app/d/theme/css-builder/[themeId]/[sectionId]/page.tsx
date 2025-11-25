@@ -363,7 +363,7 @@ ${customCSS}
         
         /* Effects */
         ${style('box-shadow', effects.shadow)}
-        ${style('transition', effects.effects?.transition || 'all 0.3s ease')}
+        ${style('transition', effects.transition || 'all 0.3s ease')}
       }
       
       /* Apply typography to all elements - REMOVED to prevent overriding original styles */

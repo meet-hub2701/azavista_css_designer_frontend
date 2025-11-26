@@ -9,6 +9,8 @@ import Sidebar from '@/components/layout/Sidebar';
 import { HexColorPicker } from 'react-colorful';
 import SimpleHtmlEditor from '@/components/SimpleHtmlEditor';
 import { SectionCSSProperties, TypographyStyle } from '@/shared-types';
+import { useThemeStore } from '@/store/themeStore';
+import PlatformCssBuilder from '@/components/platform/PlatformCssBuilder';
 
 // Helper component for color picker
 const ColorPickerField = ({ label, value, onChange, presetColors = [] }: { label: string, value: string, onChange: (val: string) => void, presetColors?: string[] }) => {
@@ -112,6 +114,11 @@ export default function CSSBuilderPage() {
   const params = useParams();
   const themeId = params.themeId as string;
   const sectionId = params.sectionId as string;
+  const { mode } = useThemeStore();
+
+  if (mode === 'platform') {
+    return <PlatformCssBuilder themeId={themeId} sectionId={sectionId} />;
+  }
   
   const { data: themeData } = useTheme(themeId);
   const { data: section, isLoading } = useSection(sectionId);
@@ -192,7 +199,10 @@ export default function CSSBuilderPage() {
   // Handle messages from iframe
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data.type === 'HTML_UPDATE') {
+      // Verify origin for security
+      if (event.origin !== window.location.origin && event.origin !== 'null') return;
+      
+      if (event.data && event.data.type === 'HTML_UPDATE') {
         setHtmlContent(event.data.html);
       }
     };
@@ -740,7 +750,7 @@ ${customCSS}
                                       window.parent.postMessage({
                                         type: 'HTML_UPDATE',
                                         html: document.getElementById('content-root').innerHTML
-                                      }, '*');
+                                      }, window.location.origin);
                                     };
                                     
                                     target.addEventListener('blur', handleBlur);

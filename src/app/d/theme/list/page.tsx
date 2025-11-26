@@ -6,6 +6,9 @@ import { Plus } from 'lucide-react';
 import { useThemes, useDeleteTheme, useDuplicateTheme, useCreateTheme } from '@/hooks/useThemes';
 import { themeAPI } from '@/lib/api';
 import Sidebar from '@/components/layout/Sidebar';
+import { useThemeStore } from '@/store/themeStore';
+import PlatformSidebar from '@/components/platform/PlatformSidebar';
+import PlatformThemeList from '@/components/platform/PlatformThemeList';
 
 export default function ThemeListPage() {
   const router = useRouter();
@@ -13,6 +16,8 @@ export default function ThemeListPage() {
   const deleteTheme = useDeleteTheme();
   const duplicateTheme = useDuplicateTheme();
   const createTheme = useCreateTheme();
+  
+  const { mode, toggleMode } = useThemeStore();
   
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [showUrlModal, setShowUrlModal] = useState(false);
@@ -46,6 +51,15 @@ export default function ThemeListPage() {
     });
   };
 
+  if (mode === 'platform') {
+    return (
+      <div className="flex h-screen bg-white font-sans">
+        <PlatformSidebar />
+        <PlatformThemeList themes={themes} />
+      </div>
+    );
+  }
+
   return (
     <div className="flex h-screen bg-white">
       <Sidebar />
@@ -53,7 +67,11 @@ export default function ThemeListPage() {
       <div className="flex-1 flex flex-col">
         {/* Top Bar */}
         <div className="bg-white border-b px-6 py-3 flex items-center justify-end gap-3">
-          <button className="px-4 py-2 border rounded text-sm hover:bg-gray-50">
+          <button 
+            onClick={toggleMode}
+            className="px-4 py-2 border rounded text-sm hover:bg-gray-50 flex items-center gap-2"
+          >
+            <div className="w-3 h-3 rounded-full border border-gray-400"></div>
             Platform Theme Switcher
           </button>
           <button

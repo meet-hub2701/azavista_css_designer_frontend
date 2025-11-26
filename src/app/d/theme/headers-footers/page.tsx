@@ -4,6 +4,9 @@ import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Sidebar from '@/components/layout/Sidebar';
 import { Plus, Edit, Trash2, Eye } from 'lucide-react';
+import { useThemeStore } from '@/store/themeStore';
+import PlatformSidebar from '@/components/platform/PlatformSidebar';
+import PlatformHeaderFooterList from '@/components/platform/PlatformHeaderFooterList';
 
 type HeaderFooterType = 'header' | 'footer';
 
@@ -17,6 +20,7 @@ interface HeaderFooterItem {
 
 export default function HeadersFootersPage() {
   const router = useRouter();
+  const { mode } = useThemeStore();
   
   // For now, using local state. In production, this would fetch from database
   const [items, setItems] = useState<HeaderFooterItem[]>([]);
@@ -51,6 +55,15 @@ export default function HeadersFootersPage() {
       item.id === id ? { ...item, isPublished: !item.isPublished } : item
     ));
   };
+
+  if (mode === 'platform') {
+    return (
+      <div className="flex h-screen bg-white font-sans">
+        <PlatformSidebar />
+        <PlatformHeaderFooterList />
+      </div>
+    );
+  }
 
   return (
     <div className="flex h-screen bg-white">

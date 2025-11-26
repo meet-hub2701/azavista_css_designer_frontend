@@ -6,6 +6,9 @@ import { ArrowLeft, Plus, Edit, Trash2, GripVertical } from 'lucide-react';
 import { useTheme } from '@/hooks/useThemes';
 import { useSections, useCreateSection, useDeleteSection } from '@/hooks/useSections';
 import type { SectionType } from '@/shared-types';
+import { useThemeStore } from '@/store/themeStore';
+import PlatformSidebar from '@/components/platform/PlatformSidebar';
+import PlatformSectionList from '@/components/platform/PlatformSectionList';
 
 const sectionTypes: { value: SectionType; label: string; icon: string }[] = [
   { value: 'header', label: 'Header', icon: '📋' },
@@ -23,6 +26,7 @@ export default function SectionListPage() {
   const router = useRouter();
   const params = useParams();
   const themeId = params.themeId as string;
+  const { mode } = useThemeStore();
   
   const { data: themeData, isLoading: themeLoading } = useTheme(themeId);
   const theme = themeData?.theme;
@@ -95,6 +99,19 @@ export default function SectionListPage() {
       alert('Failed to delete section');
     }
   };
+
+  if (mode === 'platform') {
+    return (
+      <div className="flex h-screen bg-white font-sans">
+        <PlatformSidebar />
+        <PlatformSectionList 
+          sections={sections} 
+          themeId={themeId} 
+          themeName={theme?.name} 
+        />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">

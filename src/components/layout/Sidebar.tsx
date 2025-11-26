@@ -19,11 +19,10 @@ export default function Sidebar() {
     },
     {
       label: 'Section List',
-      path: themeId ? `/d/theme/section-list/${themeId}` : '/d/theme/list',
+      path: themeId ? `/d/theme/section-list/${themeId}` : '/d/theme/section-list',
       icon: Layout,
       disabled: false,
-      requiresTheme: true,
-      tooltip: !themeId ? 'Select a theme first' : undefined,
+      requiresTheme: false,
     },
     {
       label: 'Headers and Footers',
@@ -34,11 +33,10 @@ export default function Sidebar() {
     },
     {
       label: 'CSS Builder',
-      path: themeId ? `/d/theme/css-builder/${themeId}` : '/d/theme/list',
+      path: themeId ? `/d/theme/css-builder/${themeId}` : '/d/theme/css-builder',
       icon: Code,
       disabled: false,
-      requiresTheme: true,
-      tooltip: !themeId ? 'Select a theme first' : undefined,
+      requiresTheme: false,
     },
   ];
 

@@ -75,25 +75,19 @@ export default function PlatformSidebar() {
               Theme List
             </Link>
 
-            {themeId ? (
-              <Link 
-                href={`/d/theme/section-list/${themeId}`}
-                className={`relative block py-2 pl-8 pr-3 text-sm rounded-md transition-colors ${
-                  pathname.includes('/section-list') 
-                    ? 'text-blue-600 bg-blue-50/50 font-medium' 
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                {pathname.includes('/section-list') && (
-                  <div className="absolute left-[19px] top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-blue-600 ring-4 ring-white"></div>
-                )}
-                Section List
-              </Link>
-            ) : (
-              <span className="relative block py-2 pl-8 pr-3 text-sm text-slate-300 cursor-not-allowed">
-                Section List
-              </span>
-            )}
+            <Link 
+              href={themeId ? `/d/theme/section-list/${themeId}` : '/d/theme/section-list'}
+              className={`relative block py-2 pl-8 pr-3 text-sm rounded-md transition-colors ${
+                pathname.includes('/section-list') 
+                  ? 'text-blue-600 bg-blue-50/50 font-medium' 
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              {pathname.includes('/section-list') && (
+                <div className="absolute left-[19px] top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-blue-600 ring-4 ring-white"></div>
+              )}
+              Section List
+            </Link>
 
             <Link 
               href="/d/theme/headers-footers"
@@ -109,25 +103,19 @@ export default function PlatformSidebar() {
               Header and Footer
             </Link>
 
-            {themeId && sectionId ? (
-              <Link 
-                href={`/d/theme/css-builder/${themeId}/${sectionId}`}
-                className={`relative block py-2 pl-8 pr-3 text-sm rounded-md transition-colors ${
-                  pathname.includes('/css-builder') 
-                    ? 'text-blue-600 bg-blue-50/50 font-medium' 
-                    : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
-                }`}
-              >
-                {pathname.includes('/css-builder') && (
-                  <div className="absolute left-[19px] top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-blue-600 ring-4 ring-white"></div>
-                )}
-                CSS builder
-              </Link>
-            ) : (
-              <span className="relative block py-2 pl-8 pr-3 text-sm text-slate-300 cursor-not-allowed">
-                CSS builder
-              </span>
-            )}
+            <Link 
+              href={themeId && sectionId ? `/d/theme/css-builder/${themeId}/${sectionId}` : '/d/theme/css-builder'}
+              className={`relative block py-2 pl-8 pr-3 text-sm rounded-md transition-colors ${
+                pathname.includes('/css-builder') 
+                  ? 'text-blue-600 bg-blue-50/50 font-medium' 
+                  : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50'
+              }`}
+            >
+              {pathname.includes('/css-builder') && (
+                <div className="absolute left-[19px] top-1/2 -translate-y-1/2 w-[5px] h-[5px] rounded-full bg-blue-600 ring-4 ring-white"></div>
+              )}
+              CSS builder
+            </Link>
           </div>
         </div>
 

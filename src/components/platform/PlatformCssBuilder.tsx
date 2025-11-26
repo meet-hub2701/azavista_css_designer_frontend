@@ -182,7 +182,7 @@ export default function PlatformCssBuilder({ themeId, sectionId }: PlatformCssBu
           }
         };
       }
-      
+
       setCssProps(props);
       setCustomCSS(section.customCSS || '');
       setHtmlContent(section.htmlContent || '');

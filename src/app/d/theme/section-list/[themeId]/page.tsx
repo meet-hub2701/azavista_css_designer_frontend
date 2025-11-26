@@ -9,6 +9,7 @@ import type { SectionType } from '@/shared-types';
 import { useThemeStore } from '@/store/themeStore';
 import PlatformSidebar from '@/components/platform/PlatformSidebar';
 import PlatformSectionList from '@/components/platform/PlatformSectionList';
+import Sidebar from '@/components/layout/Sidebar';
 
 const sectionTypes: { value: SectionType; label: string; icon: string }[] = [
   { value: 'header', label: 'Header', icon: '📋' },

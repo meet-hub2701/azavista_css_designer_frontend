@@ -64,7 +64,7 @@ export default function Sidebar() {
           {menuItems.map((item) => {
             const Icon = item.icon;
             const isActive = pathname?.startsWith(item.path);
-            
+
             return (
               <button
                 key={item.label}
@@ -95,8 +95,6 @@ export default function Sidebar() {
           })}
         </nav>
       </div>
-
-
     </div>
   );
 }

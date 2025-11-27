@@ -12,31 +12,13 @@ interface SimpleHtmlEditorProps {
 
 export default function SimpleHtmlEditor({ html, onSave, onClose, isOpen }: SimpleHtmlEditorProps) {
   if (!isOpen) return null;
-  // Strip CSS from HTML for editing
-  const stripCSS = (htmlContent: string): string => {
-    let cleaned = htmlContent;
-    
-    // Remove <style> tags and their content
-    cleaned = cleaned.replace(/<style[^>]*>[\s\S]*?<\/style>/gi, '');
-    
-    // Remove inline style attributes
-    cleaned = cleaned.replace(/\s*style=["'][^"']*["']/gi, '');
-    
-    // Clean up extra whitespace
-    cleaned = cleaned.replace(/\n\s*\n/g, '\n');
-    
-    return cleaned.trim();
-  };
-
-  const [editedHtml, setEditedHtml] = useState(stripCSS(html));
-  const [originalHtml] = useState(html);
+  const [editedHtml, setEditedHtml] = useState(html);
 
   useEffect(() => {
-    setEditedHtml(stripCSS(html));
+    setEditedHtml(html);
   }, [html]);
 
   const handleSave = () => {
-    // Save the cleaned HTML (without CSS)
     onSave(editedHtml);
     onClose();
   };
@@ -56,7 +38,7 @@ export default function SimpleHtmlEditor({ html, onSave, onClose, isOpen }: Simp
             </button>
           </div>
           <p className="text-sm text-gray-600">
-            Edit text and HTML structure. CSS styles are managed separately in the right panel.
+            Edit the full HTML content including inline styles and structure.
           </p>
         </div>
 

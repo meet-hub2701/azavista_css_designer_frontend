@@ -233,8 +233,6 @@ export default function PlatformCssBuilder({ themeId, sectionId }: PlatformCssBu
       #content-root {
         width: 100%;
         position: relative;
-      }
-      #content-root > :first-child {
         ${style('background-color', colors.background)}
         ${style('color', colors.text)}
         ${style('font-family', typography.fontFamily)}
@@ -252,10 +250,8 @@ export default function PlatformCssBuilder({ themeId, sectionId }: PlatformCssBu
         ${style('margin-left', spacing.marginValues?.left || spacing.margin)}
         ${style('opacity', effects.opacity)}
         ${style('max-width', spacing.pageWidth)}
-        width: 100%;
         margin-left: auto;
         margin-right: auto;
-        position: relative;
         ${style('border-radius', borders.radius)}
         ${style('border-width', borders.width)}
         ${style('border-style', borders.style)}
@@ -362,7 +358,7 @@ export default function PlatformCssBuilder({ themeId, sectionId }: PlatformCssBu
 
       css += `
         ${keyframes}
-        #content-root > :first-child {
+        #content-root {
           animation: ${name} ${duration} ${timingFunction || 'ease'} ${delay || '0s'} forwards !important;
         }
       `;
@@ -382,6 +378,12 @@ export default function PlatformCssBuilder({ themeId, sectionId }: PlatformCssBu
       </div>
     );
   }
+
+  // Extract body content if it's a full HTML document
+  const getBodyContent = (html: string) => {
+    const bodyMatch = html.match(/<body[^>]*>([\s\S]*)<\/body>/i);
+    return bodyMatch ? bodyMatch[1] : html;
+  };
 
   return (
     <div className="flex h-screen bg-slate-50 font-sans overflow-hidden">
@@ -480,49 +482,23 @@ export default function PlatformCssBuilder({ themeId, sectionId }: PlatformCssBu
                       <style id="generated-css">
                         ${generateBootstrapCSS()}
                       </style>
-                      <style>
-                        body { margin: 0; min-height: 100vh; }
-                        [contenteditable="true"] {
-                          outline: 2px solid #3b82f6;
-                          outline-offset: 2px;
-                          border-radius: 2px;
-                          min-width: 1em;
-                          cursor: text;
-                        }
-                        *:hover:not([contenteditable="true"]) {
-                          cursor: pointer;
-                          outline: 1px dashed #9ca3af;
-                          outline-offset: 2px;
-                        }
-                      </style>
-                    </head>
-                    <body>
-                      <div id="content-root">${htmlContent}</div>
                       <script>
                         document.addEventListener('click', (e) => {
                           const target = e.target;
-                          if (target.id === 'content-root' || target === document.body || target.isContentEditable) return;
                           if (target.tagName === 'A') e.preventDefault();
-                          target.contentEditable = 'true';
-                          target.focus();
-                          const handleBlur = () => {
-                            target.contentEditable = 'false';
-                            target.removeAttribute('contenteditable');
-                            target.removeEventListener('blur', handleBlur);
-                            window.parent.postMessage({
-                              type: 'HTML_UPDATE',
-                              html: document.getElementById('content-root').innerHTML
-                            }, window.location.origin);
-                          };
-                          target.addEventListener('blur', handleBlur);
                         });
                       </script>
+                    </head>
+                    <body>
+                      <div id="content-root">
+                        ${getBodyContent(htmlContent)}
+                      </div>
                     </body>
                   </html>
                 `}
                 className="w-full h-full border-0"
                 sandbox="allow-same-origin allow-scripts allow-forms allow-popups allow-modals"
-                title="Editable Preview"
+                title="Preview"
               />
             </div>
           </div>
